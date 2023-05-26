@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #train {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      #buttons {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="train-container">
+      <img
+        id="train"
+        src="img.png"
+        alt="Train Photo"
+        width="20%"
+        height="30%"
+      />
+    </div>
+    <div id="buttons">
+      <button style="height: 20%; padding: 10px" onclick="startAnimation()">
+        Start
+      </button>
+      <button style="height: 20%; padding: 10px" onclick="stopAnimation()">
+        Stop
+      </button>
+    </div>
+    <script>
+      var train = document.getElementById("train");
+      var container = document.getElementById("train-container");
+      var animationId;
+      function startAnimation() {
+        animationId = requestAnimationFrame(moveTrain);
+      }
+      function moveTrain() {
+        var currentPosition = parseInt(train.style.left) || 0;
+        var containerWidth = container.offsetWidth;
+        var trainWidth = train.offsetWidth;
+        if (currentPosition <= containerWidth - trainWidth) {
+          train.style.left = currentPosition + 2 + "px";
+          animationId = requestAnimationFrame(moveTrain);
+        }
+      }
+      function stopAnimation() {
+        cancelAnimationFrame(animationId);
+      }
+    </script>
+  </body>
+</html>
